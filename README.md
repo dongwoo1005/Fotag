@@ -1,9 +1,9 @@
 Fotag!
 ======
-CS349 Assignment 3
-created by Dongwoo Son
-created at March 3, 2016
-email: d3son@uwaterloo.ca
+- CS349 Assignment 3
+- Created by Dongwoo Son
+- Created at March 3, 2016
+- Email: d3son@uwaterloo.ca
 
 Preview
 -------
