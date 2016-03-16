@@ -1,7 +1,6 @@
 package main.view.toolbar;
 
 import main.model.toolbar.RateFilterModel;
-import main.model.toolbar.ToolbarModel;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;

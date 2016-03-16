@@ -33,26 +33,21 @@ public class WrapLayout extends FlowLayout
     }
 
     @Override
-    public Dimension minimumLayoutSize(Container target)
-    {
+    public Dimension minimumLayoutSize(Container target) {
+
         Dimension minimum = layoutSize(target, false);
         minimum.width -= (getHgap() + 1);
         return minimum;
     }
 
-    private Dimension layoutSize(Container target, boolean preferred)
-    {
-        synchronized (target.getTreeLock())
-        {
-            //  Each row must fit with the width allocated to the containter.
-            //  When the container width = 0, the preferred width of the container
-            //  has not yet been calculated so lets ask for the maximum.
+    private Dimension layoutSize(Container target, boolean preferred) {
+
+        synchronized (target.getTreeLock()) {
 
             int targetWidth = target.getSize().width;
             Container container = target;
 
-            while (container.getSize().width == 0 && container.getParent() != null)
-            {
+            while (container.getSize().width == 0 && container.getParent() != null) {
                 container = container.getParent();
             }
 
@@ -67,40 +62,30 @@ public class WrapLayout extends FlowLayout
             int horizontalInsetsAndGap = insets.left + insets.right + (hgap * 2);
             int maxWidth = targetWidth - horizontalInsetsAndGap;
 
-            //  Fit components into the allowed width
-
             Dimension dim = new Dimension(0, 0);
             int rowWidth = 0;
             int rowHeight = 0;
 
-            int nmembers = target.getComponentCount();
+            int numComponent = target.getComponentCount();
 
-            for (int i = 0; i < nmembers; i++)
-            {
-                Component m = target.getComponent(i);
+            for (int i = 0; i < numComponent; i++) {
+                Component component = target.getComponent(i);
 
-                if (m.isVisible())
-                {
-                    Dimension d = preferred ? m.getPreferredSize() : m.getMinimumSize();
+                if (component.isVisible()) {
+                    Dimension compDim = preferred ? component.getPreferredSize() : component.getMinimumSize();
 
-                    //  Can't add the component to current row. Start a new row.
-
-                    if (rowWidth + d.width > maxWidth)
-                    {
+                    if (rowWidth + compDim.width > maxWidth) {
                         addRow(dim, rowWidth, rowHeight);
                         rowWidth = 0;
                         rowHeight = 0;
                     }
 
-                    //  Add a horizontal gap for all components after the first
-
-                    if (rowWidth != 0)
-                    {
+                    if (rowWidth != 0) {
                         rowWidth += hgap;
                     }
 
-                    rowWidth += d.width;
-                    rowHeight = Math.max(rowHeight, d.height);
+                    rowWidth += compDim.width;
+                    rowHeight = Math.max(rowHeight, compDim.height);
                 }
             }
 
@@ -109,15 +94,9 @@ public class WrapLayout extends FlowLayout
             dim.width += horizontalInsetsAndGap;
             dim.height += insets.top + insets.bottom + vgap * 2;
 
-            //	When using a scroll pane or the DecoratedLookAndFeel we need to
-            //  make sure the preferred size is less than the size of the
-            //  target containter so shrinking the container size works
-            //  correctly. Removing the horizontal gap is an easy way to do this.
-
             Container scrollPane = SwingUtilities.getAncestorOfClass(JScrollPane.class, target);
 
-            if (scrollPane != null && target.isValid())
-            {
+            if (scrollPane != null && target.isValid()) {
                 dim.width -= (hgap + 1);
             }
 
@@ -125,20 +104,11 @@ public class WrapLayout extends FlowLayout
         }
     }
 
-    /*
-     *  A new row has been completed. Use the dimensions of this row
-     *  to update the preferred size for the container.
-     *
-     *  @param dim update the width and height when appropriate
-     *  @param rowWidth the width of the row to add
-     *  @param rowHeight the height of the row to add
-     */
-    private void addRow(Dimension dim, int rowWidth, int rowHeight)
-    {
+    private void addRow(Dimension dim, int rowWidth, int rowHeight) {
+
         dim.width = Math.max(dim.width, rowWidth);
 
-        if (dim.height > 0)
-        {
+        if (dim.height > 0) {
             dim.height += getVgap();
         }
 

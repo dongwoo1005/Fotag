@@ -9,8 +9,6 @@ import main.view.image.ImageView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -67,7 +65,7 @@ public class ImageCollectionView extends JPanel implements Observer{
             ImageModel imageModel = imageCollectionModel.getImageList().get(lastIndex);
 
             if (rateFilterModel.getFilterValue() != 0){
-                if (rateFilterModel.getFilterValue() == imageModel.getRating()){
+                if (rateFilterModel.getFilterValue() <= imageModel.getRating()){
                     addImageToCollection(imageModel);
                 }
             } else {
@@ -85,7 +83,7 @@ public class ImageCollectionView extends JPanel implements Observer{
             } else {
                 for (ImageModel imageModel : imageCollectionModel.getImageList()){
                     int rating = imageModel.getRating();
-                    if (rating == rateFilterModel.getFilterValue()){
+                    if (rating >= rateFilterModel.getFilterValue()){
                         addImageToCollection(imageModel);
                     }
                 }
@@ -96,7 +94,7 @@ public class ImageCollectionView extends JPanel implements Observer{
             if (rateFilterModel.getFilterValue() != 0){
                 this.removeAll();
                 for (ImageModel imageModel : imageCollectionModel.getImageList()){
-                    if (rateFilterModel.getFilterValue() == imageModel.getRating()){
+                    if (rateFilterModel.getFilterValue() <= imageModel.getRating()){
                         addImageToCollection(imageModel);
                     }
                 }

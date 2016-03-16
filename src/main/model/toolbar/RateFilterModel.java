@@ -7,19 +7,19 @@ import java.util.Observable;
  */
 public class RateFilterModel extends Observable {
 
-    int FilterValue;
+    private int filterValue;
 
     public RateFilterModel() {
 
-        FilterValue = 0;
+        filterValue = 0;
     }
 
     public int getFilterValue() {
-        return FilterValue;
+        return filterValue;
     }
 
     public void setFilterValue(int filterValue) {
-        FilterValue = filterValue;
+        this.filterValue = filterValue;
         setChanged();
         notifyObservers("setFilterValue");
     }

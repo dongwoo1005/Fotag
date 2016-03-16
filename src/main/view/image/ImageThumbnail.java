@@ -7,7 +7,6 @@ import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -16,14 +15,14 @@ import java.util.Observer;
  */
 public class ImageThumbnail extends JPanel implements Observer{
 
-    ImageIcon originalImage;
-    ImageIcon thumbnailImage, enlargedImage;
-    int originalWidth, originalHeight;
-    int thumbnailWidth, thumbnailHeight;
-    int enlargedWidth, enlargedHeight;
-    JLabel thumbnail, enlarged;
-    JFrame enlargedWindow;
-    boolean hasEnlarged;
+    private ImageIcon originalImage;
+    private ImageIcon thumbnailImage, enlargedImage;
+    private int originalWidth, originalHeight;
+    private int thumbnailWidth, thumbnailHeight;
+    private int enlargedWidth, enlargedHeight;
+    private JLabel thumbnail, enlarged;
+    private JFrame enlargedWindow;
+    private boolean hasEnlarged;
     private ImageModel imageModel;
 
     public ImageThumbnail(ImageModel imageModel) {

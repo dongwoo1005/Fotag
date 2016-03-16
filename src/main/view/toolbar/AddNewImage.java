@@ -7,21 +7,15 @@ import main.model.toolbar.AddNewImageModel;
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
-import javax.imageio.*;
-import javax.imageio.stream.*;
-import javax.imageio.metadata.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -51,6 +45,7 @@ public class AddNewImage extends JPanel implements Observer{
         String activeColor = "yellow";
 
         fc = new JFileChooser();
+        fc.setMultiSelectionEnabled(true);
         fc.setCurrentDirectory(new File("."));
 
         addNewIconInactive = new ImageIcon(
@@ -89,21 +84,26 @@ public class AddNewImage extends JPanel implements Observer{
             if (labelPressed == addNew){
                 int ret = fc.showOpenDialog(null);
                 if (ret == JFileChooser.APPROVE_OPTION){
-                    File file = fc.getSelectedFile();
+//                    File file = fc.getSelectedFile();
+                    File[] files = fc.getSelectedFiles();
 
                     // handled opened file
                     try {
-                        String filePath = file.getAbsolutePath();
+                        for (File file : files){
+                            String filePath = file.getAbsolutePath();
 
-                        String fileName = file.getName();
+                            String fileName = file.getName();
 
-                        BasicFileAttributes attr = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
-                        FileTime fileCreated = attr.creationTime();
-                        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                        String fileCreatedDate = dateFormat.format(fileCreated.toMillis());
+                            BasicFileAttributes attr = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                            FileTime fileCreated = attr.creationTime();
+                            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                            String fileCreatedDate = dateFormat.format(fileCreated.toMillis());
 
-                        ImageModel imageModel = new ImageModel(filePath, fileName, fileCreatedDate);
-                        imageCollectionModel.addToImageList(imageModel);
+                            if (!imageCollectionModel.findByPath(filePath)){
+                                ImageModel imageModel = new ImageModel(filePath, fileName, fileCreatedDate);
+                                imageCollectionModel.addToImageList(imageModel);
+                            }
+                        }
 
                     } catch(IOException err){
                         err.printStackTrace();

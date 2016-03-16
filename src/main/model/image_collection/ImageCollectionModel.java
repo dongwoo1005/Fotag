@@ -42,6 +42,16 @@ public class ImageCollectionModel extends Observable implements Serializable{
         return imageList;
     }
 
+    // search
+    public boolean findByPath(String path){
+        for (ImageModel imageModel : imageList){
+            if (imageModel.getFilePath().equals(path)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     // loader
     public void loadModel(ImageCollectionModel newModel){
         imageList.clear();

@@ -1,6 +1,5 @@
 package main;
 
-import main.model.image.ImageModel;
 import main.model.image_collection.ImageCollectionModel;
 import main.model.toolbar.RateFilterModel;
 import main.model.toolbar.ToolbarModel;

@@ -14,16 +14,13 @@ import java.util.Observer;
  */
 public class ImageView extends JPanel implements Observer{
 
-    ImageThumbnail imageThumbnail;
-    JPanel imageName, imageDate;
-    Rating rating;
-    GridBagLayout gridViewLayout;
-    FlowLayout listViewLayout;
-    JPanel listDescription;
-    GridBagConstraints c_grid_image, c_grid_name, c_grid_date, c_grid_rating;
-
-    Component listPadding1, listPadding2, listPadding3;
-
+    private ImageThumbnail imageThumbnail;
+    private JPanel imageName, imageDate;
+    private Rating rating;
+    private GridBagLayout gridViewLayout;
+    private FlowLayout listViewLayout;
+    private JPanel listDescription;
+    private GridBagConstraints c_grid_image, c_grid_name, c_grid_date, c_grid_rating;
 
     private ImageModel imageModel;
     private ViewSelectorModel viewSelectorModel;
@@ -35,10 +32,6 @@ public class ImageView extends JPanel implements Observer{
 
         gridViewLayout = new GridBagLayout();
         listViewLayout = new FlowLayout(FlowLayout.LEFT);
-
-        listPadding1 = Box.createRigidArea(new Dimension(10,0));
-        listPadding2 = Box.createRigidArea(new Dimension(10,0));
-        listPadding3 = Box.createRigidArea(new Dimension(10,0));
 
         imageThumbnail = new ImageThumbnail(imageModel);
         imageModel.addObserver(imageThumbnail);
