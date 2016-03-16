@@ -1,6 +1,5 @@
 Fotag!
 ======
-- CS349 Assignment 3
 - Created by Dongwoo Son
 - Created at March 3, 2016
 - Email: d3son@uwaterloo.ca
